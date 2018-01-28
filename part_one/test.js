@@ -5,12 +5,12 @@ test("adds two numbers", () => {
   const result = add(1, 2);
   const expectation = 3;
 
-  return expect(result).toBe(expectation);
+  expect(result).toBe(expectation);
 });
 
-test("adds two numbers", () => {
+test("adds two numbers incorrectly", () => {
   const result = add(1, 2);
   const expectation = 4;
 
-  return expect(result).not().toBe(expectation);
+  expect(result).not().toBe(expectation);
 });
