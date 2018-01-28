@@ -1,11 +1,16 @@
-const { expect, test } = require("./testRunner.js");
+const { expect, test } = require("../utilities/testRunner.js");
 const { add } = require("./index.js");
-
-expect(add(1, 2)).toBe(13);
 
 test("adds two numbers", () => {
   const result = add(1, 2);
-  const expect = 4;
+  const expectation = 3;
 
-  return expect(result).toBe(expect);
+  return expect(result).toBe(expectation);
+});
+
+test("adds two numbers", () => {
+  const result = add(1, 2);
+  const expectation = 4;
+
+  return expect(result).not().toBe(expectation);
 });
