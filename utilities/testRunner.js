@@ -35,20 +35,20 @@ function expect(result) {
   return new Expect(result);
 }
 
-function test(testName, testToRun) {
+function it(testName, testToRun) {
   try {
     testToRun();
-    console.info(`${testName} passed!! 😎`);
+    console.info(`it ${testName} passed!! 😎`);
   } catch (err) {
     const { expectation, result } = err;
     console.info(
-      `${testName} failed 😭 🤬. Expectation did not match the result `,
+      `it ${testName} failed 😭 🤬. Expectation did not match the result `,
       { expectation, result }
     );
   }
 }
 
 module.exports = {
-  test,
+  it,
   expect
 };
