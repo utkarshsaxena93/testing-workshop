@@ -108,6 +108,26 @@ it("returns false when month and year is different", () => {
   - Go over how to use spies to test if the callback was triggered
 */
 
-it("call the callback when dates are different", () => {});
+it("call the callback when dates are different", () => {
+  let spyWasCalled = false;
+  const spy = () => {
+    spyWasCalled = true;
+  };
+  const day1 = new Date(`October 20, 2011 00:20:18`);
+  const day2 = new Date(`July 20, 2012 00:20:18`);
+  triggerIfDifferentDay(day1, day2, spy);
+  
+  expect(spyWasCalled).toBe(true);
+});
 
-it("does not call the callback when dates are same", () => {});
+it("does not call the callback when dates are same", () => {
+  let spyWasCalled = false;
+  const spy = () => {
+    spyWasCalled = true;
+  };
+  const day1 = new Date(`July 20, 2012 00:20:18`);
+  const day2 = new Date(`July 20, 2012 00:20:18`);
+  triggerIfDifferentDay(day1, day2, spy);
+
+  expect(spyWasCalled).toBe(false);
+});
