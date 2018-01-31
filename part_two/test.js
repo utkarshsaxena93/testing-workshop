@@ -16,7 +16,7 @@ it("gets the year when start date is provided", () => {
     start: new Date(`July 20, ${year} 00:20:18`)
   });
 
-  expect(result).toBe(year);
+  expect(result, year);
 });
 
 it("gets the year when end date is provided", () => {
@@ -26,7 +26,7 @@ it("gets the year when end date is provided", () => {
     end: new Date(`July 20, ${year} 00:20:18`)
   });
 
-  expect(result).toBe(year);
+  expect(result, year);
 });
 
 it("gets the start year when both start and end date is provided", () => {
@@ -38,7 +38,7 @@ it("gets the start year when both start and end date is provided", () => {
     end: new Date(`July 20, ${end} 00:20:18`)
   });
 
-  expect(result).toBe(start);
+  expect(result, start);
 });
 
 // Good example to explain mocks
@@ -48,7 +48,7 @@ it("gets the current year when start and end date are not provided", () => {
   global.Date = dateMock(new Date(`July 20, ${currentYear} 00:20:18`));
   const result = getYearForRange();
 
-  expect(result).toBe(currentYear);
+  expect(result, currentYear);
 });
 global.Date = originalDate;
 
@@ -63,43 +63,43 @@ global.Date = originalDate;
 it("returns true when dates are same", () => {
   const day1 = new Date(`July 20, 2012 00:20:18`);
   const day2 = new Date(`July 20, 2012 00:20:18`);
-  expect(isSameDay(day1, day2)).toBe(true);
+  expect(isSameDay(day1, day2), true);
 });
 
 it("returns false when only date is different", () => {
   const day1 = new Date(`July 21, 2012 00:20:18`);
   const day2 = new Date(`July 20, 2012 00:20:18`);
-  expect(isSameDay(day1, day2)).toBe(false);
+  expect(isSameDay(day1, day2), false);
 });
 
 it("returns false when only month is different", () => {
   const day1 = new Date(`August 20, 2012 00:20:18`);
   const day2 = new Date(`July 20, 2012 00:20:18`);
-  expect(isSameDay(day1, day2)).toBe(false);
+  expect(isSameDay(day1, day2), false);
 });
 
 it("returns false when only year is different", () => {
   const day1 = new Date(`July 21, 2022 00:20:18`);
   const day2 = new Date(`July 20, 2012 00:20:18`);
-  expect(isSameDay(day1, day2)).toBe(false);
+  expect(isSameDay(day1, day2), false);
 });
 
 it("returns false when date and month is different", () => {
   const day1 = new Date(`August 21, 2012 00:20:18`);
   const day2 = new Date(`July 20, 2012 00:20:18`);
-  expect(isSameDay(day1, day2)).toBe(false);
+  expect(isSameDay(day1, day2), false);
 });
 
 it("returns false when date and year is different", () => {
   const day1 = new Date(`July 21, 2011 00:20:18`);
   const day2 = new Date(`July 20, 2012 00:20:18`);
-  expect(isSameDay(day1, day2)).toBe(false);
+  expect(isSameDay(day1, day2), false);
 });
 
 it("returns false when month and year is different", () => {
   const day1 = new Date(`October 20, 2011 00:20:18`);
   const day2 = new Date(`July 20, 2012 00:20:18`);
-  expect(isSameDay(day1, day2)).toBe(false);
+  expect(isSameDay(day1, day2), false);
 });
 
 /*
@@ -116,8 +116,8 @@ it("call the callback when dates are different", () => {
   const day1 = new Date(`October 20, 2011 00:20:18`);
   const day2 = new Date(`July 20, 2012 00:20:18`);
   triggerIfDifferentDay(day1, day2, spy);
-  
-  expect(spyWasCalled).toBe(true);
+
+  expect(spyWasCalled, true);
 });
 
 it("does not call the callback when dates are same", () => {
@@ -129,5 +129,5 @@ it("does not call the callback when dates are same", () => {
   const day2 = new Date(`July 20, 2012 00:20:18`);
   triggerIfDifferentDay(day1, day2, spy);
 
-  expect(spyWasCalled).toBe(false);
+  expect(spyWasCalled, false);
 });
