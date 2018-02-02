@@ -1,3 +1,1 @@
-function add(x, y) {
-  return x + y;
-}
+console.log('our code goes here');
