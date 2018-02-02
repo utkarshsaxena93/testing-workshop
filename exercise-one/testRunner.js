@@ -1,8 +1,8 @@
-function expect(result, expectation) {
+function assert(result, expectation) {
   if (result === expectation) {
-    console.info('Test passed!!');
+    console.log("Test passed!!");
   } else {
-    console.info(`Test failed. Expectation did not match the result `, {
+    console.error(`Test failed. Expectation did not match the result `, {
       result,
       expectation
     });
