@@ -1,1 +1,3 @@
-console.log('our code goes here');
+function add(x, y) {
+  return x + y;
+}
