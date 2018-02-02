@@ -9,7 +9,3 @@ function dateMock(currentDate) {
     }
   };
 }
-
-module.exports = {
-  dateMock
-};

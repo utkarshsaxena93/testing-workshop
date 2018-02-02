@@ -1,11 +1,3 @@
-const { expect, it } = require("../utilities/testRunner.js");
-const { dateMock } = require("../utilities/mocks/DateMock.js");
-const {
-  getYearForRange,
-  isSameDay,
-  triggerIfDifferentDay
-} = require("./dates.js");
-
 /*
   Tests for `getYearForRange`
 */
@@ -42,23 +34,18 @@ it("gets the start year when both start and end date is provided", () => {
 });
 
 // Good example to explain mocks
-const originalDate = global.Date; // think window.Date when in a browser environment
+const originalDate = window.Date;
 it("gets the current year when start and end date are not provided", () => {
   const currentYear = 2016;
-  global.Date = dateMock(new Date(`July 20, ${currentYear} 00:20:18`));
+  window.Date = dateMock(new Date(`July 20, ${currentYear} 00:20:18`));
   const result = getYearForRange();
 
   expect(result, currentYear);
 });
-global.Date = originalDate;
+window.Date = originalDate;
 
 /*
   Tests for `isSameDay`
-  - Go over testing all cases.
-  - Go over testing functions being used within isSameDay and 
-    if we should test those or not /  how to correctly test those?
-  - Go over mocking globals for predectable tests and what happens if we don't
-  - Think about separating each test into a separate branch and file for course purposes
 */
 it("returns true when dates are same", () => {
   const day1 = new Date(`July 20, 2012 00:20:18`);
@@ -104,8 +91,6 @@ it("returns false when month and year is different", () => {
 
 /*
   Tests for `triggerIfDifferentDay`
-  - Go over if we need to test `isSameDay` being used by this function
-  - Go over how to use spies to test if the callback was triggered
 */
 
 it("call the callback when dates are different", () => {

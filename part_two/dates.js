@@ -39,9 +39,3 @@ function isYearSame(day1, day2) {
 /*
   Private end
 */
-
-module.exports = {
-  getYearForRange,
-  isSameDay,
-  triggerIfDifferentDay
-};
