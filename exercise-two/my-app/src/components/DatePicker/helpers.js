@@ -10,12 +10,6 @@ export function getYearForRange(range) {
   return new Date().getFullYear();
 }
 
-export function triggerIfDifferentDay(day1, day2, callback) {
-  if (!isSameDay(day1, day2)) {
-    callback();
-  }
-}
-
 export function isSameDay(day1, day2) {
   return (
     isDateSame(day1, day2) && isMonthSame(day1, day2) && isYearSame(day1, day2)
