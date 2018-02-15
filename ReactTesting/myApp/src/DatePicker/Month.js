@@ -19,8 +19,8 @@ class Month extends Component {
 
   render() {
     const { month, year } = this.props;
-    const week = getWeeksForMonth(month, year);
-    const weeksMarkup = week.map((week, index) => {
+    const weeks = getWeeksForMonth(month, year);
+    const weeksMarkup = weeks.map((week, index) => {
       return (
         <div role="row" className="Week" key={index}>
           {week.map(this.renderWeek)}
