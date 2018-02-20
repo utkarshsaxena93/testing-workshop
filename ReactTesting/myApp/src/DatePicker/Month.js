@@ -33,7 +33,6 @@ class Month extends Component {
         <Weekday
           key={weekday}
           title={abbreviationForWeekday(weekday)}
-          current={true}
           label={weekday}
         />
       );

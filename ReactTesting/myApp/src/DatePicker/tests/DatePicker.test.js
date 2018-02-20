@@ -3,6 +3,8 @@ import { mount } from "enzyme";
 
 import Month from "../Month";
 import Day from "../Day";
+import Weekday from "../Weekday";
+import {weekdays, abbreviationForWeekday} from "../helpers";
 
 describe("<Month />", () => {
   const mockProps = {
@@ -24,7 +26,7 @@ describe("<Month />", () => {
         return fullDate.getDate() === date;
       });
   
-      expect(selectedDayComponent.prop("selected")).toEqual(true);
+      expect(selectedDayComponent.prop("selected")).toBe(true);
     });
   
     it('assigns the onClick prop to the Day component', () => {
@@ -40,7 +42,7 @@ describe("<Month />", () => {
   
       const firstDayComponent = nonEmptyStateDayComponents.first();
   
-      expect(firstDayComponent.prop('onClick')).toEqual(onDayClickSpy);
+      expect(firstDayComponent.prop('onClick')).toBe(onDayClickSpy);
     });
   
     it('calls the onDayClick callback when Day is clicked', () => {
@@ -70,7 +72,7 @@ describe("<Month />", () => {
         return false;
       });
   
-      expect(emptyStateDayComponents.length).toEqual(5);
+      expect(emptyStateDayComponents.length).toBe(5);
     });
   
     it('renders the non-empty state Day components', () => {
@@ -83,7 +85,46 @@ describe("<Month />", () => {
         return fullDate.getDate();
       });
   
-      expect(nonEmptyStateDayComponents.length).toEqual(30);
+      expect(nonEmptyStateDayComponents.length).toBe(30);
+    });
+  });
+
+  describe("<Weekday />", () => {
+    it('renders Weekday components', () => {
+      const wrapper = mount(<Month {...mockProps} />);
+      const numberOfWeekdayComponents = wrapper.find(Weekday).length;
+
+      expect(numberOfWeekdayComponents).toBe(7);
+    });
+
+    it('renders Weekday components with titles', () => {
+      const wrapper = mount(<Month {...mockProps} />);
+      
+      const expectedTitles = weekdays.map((weekday) => {
+        return abbreviationForWeekday(weekday);
+      });
+
+      const weekdayComponents = wrapper.find(Weekday);
+      const titlesFromComponents = weekdayComponents.map((component) => {
+        return component.prop('title');
+      });
+
+      expect(titlesFromComponents).toEqual(expectedTitles);
+    });
+
+    it('renders Weekday components with labels', () => {
+      const wrapper = mount(<Month {...mockProps} />);
+      
+      const expectedLabels = weekdays.map((weekday) => {
+        return weekday;
+      });
+
+      const weekdayComponents = wrapper.find(Weekday);
+      const labelsFromComponents = weekdayComponents.map((component) => {
+        return component.prop('label');
+      });
+
+      expect(labelsFromComponents).toEqual(expectedLabels);
     });
   });
 });
