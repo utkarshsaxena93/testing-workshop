@@ -6,7 +6,7 @@ import Day from "../Day";
 import Weekday from "../Weekday";
 import {weekdays, abbreviationForWeekday} from "../helpers";
 
-describe("<Month />", () => {
+describe('<Month />', () => {
   const mockProps = {
     date: 22,
     month: 10,
@@ -14,8 +14,8 @@ describe("<Month />", () => {
     onDayClick: () => {}
   };
 
-  describe("<Day />", () => {
-    it("sets the selected prop on the Day component to true for the given date", () => {
+  describe('<Day />', () => {
+    it('sets the selected prop on the Day component to true for the given date', () => {
       const date = 15;
       const wrapper = mount(<Month {...mockProps} date={date} />);
       const selectedDayComponent = wrapper.find(Day).filterWhere(component => {
@@ -86,6 +86,40 @@ describe("<Month />", () => {
       });
   
       expect(nonEmptyStateDayComponents.length).toEqual(30);
+    });
+
+    describe('hover state', () => {
+      it('defaults to non-hovering state', () => {
+        const wrapper = mount(<Month {...mockProps} />);
+        const componentsWithHovering = wrapper.find(Day).filterWhere(component => {
+          const hovering = component.prop("hovering");
+          return hovering;
+        });
+        expect(componentsWithHovering.length).toEqual(0);
+      });
+
+      it('sets hovering to true for date that matches `hoveredDate` state', () => {
+        const hoveredDate = 20;
+        const wrapper = mount(<Month {...mockProps} />);
+
+        const dayComponentToHover = wrapper.find(Day).filterWhere(component => {
+          const fullDate = component.prop("fullDate");
+          if (fullDate == null) {
+            return false;
+          }
+          return fullDate.getDate() === hoveredDate;
+        });
+
+        dayComponentToHover.simulate('mouseEnter', hoveredDate);
+        wrapper.update();
+
+        const componentsWithHovering = wrapper.find(Day).filterWhere(component => {
+          const hovering = component.prop("hovering");
+          return hovering;
+        });
+
+        expect(componentsWithHovering.prop('fullDate').getDate()).toEqual(hoveredDate);
+      });
     });
   });
 
