@@ -59,5 +59,31 @@ describe("<Month />", () => {
       firstDayComponent.simulate('click');
       expect(onDayClickSpy).toHaveBeenCalledTimes(1);
     });
+  
+    it('renders the empty state Day components', () => {
+      const wrapper = mount(<Month {...mockProps} />);
+      const emptyStateDayComponents = wrapper.find(Day).filterWhere(component => {
+        const fullDate = component.prop("fullDate");
+        if (fullDate == null || component == null) {
+          return true;
+        }
+        return false;
+      });
+  
+      expect(emptyStateDayComponents.length).toEqual(5);
+    });
+  
+    it('renders the non-empty state Day components', () => {
+      const wrapper = mount(<Month {...mockProps} />);
+      const nonEmptyStateDayComponents = wrapper.find(Day).filterWhere(component => {
+        const fullDate = component.prop("fullDate");
+        if (fullDate == null) {
+          return false;
+        }
+        return fullDate.getDate();
+      });
+  
+      expect(nonEmptyStateDayComponents.length).toEqual(30);
+    });
   });
 });
