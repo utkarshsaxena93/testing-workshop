@@ -26,7 +26,7 @@ describe('<Month />', () => {
         return fullDate.getDate() === date;
       });
   
-      expect(selectedDayComponent.prop("selected")).toEqual(true);
+      expect(selectedDayComponent.prop("selected")).toBe(true);
     });
   
     it('assigns the onClick prop to the Day component', () => {
@@ -42,7 +42,7 @@ describe('<Month />', () => {
   
       const firstDayComponent = nonEmptyStateDayComponents.first();
   
-      expect(firstDayComponent.prop('onClick')).toEqual(onDayClickSpy);
+      expect(firstDayComponent.prop('onClick')).toBe(onDayClickSpy);
     });
   
     it('calls the onDayClick callback when Day is clicked', () => {
@@ -72,7 +72,7 @@ describe('<Month />', () => {
         return false;
       });
   
-      expect(emptyStateDayComponents.length).toEqual(5);
+      expect(emptyStateDayComponents.length).toBe(5);
     });
   
     it('renders the non-empty state Day components', () => {
@@ -85,7 +85,7 @@ describe('<Month />', () => {
         return fullDate.getDate();
       });
   
-      expect(nonEmptyStateDayComponents.length).toEqual(30);
+      expect(nonEmptyStateDayComponents.length).toBe(30);
     });
 
     describe('hover state', () => {
@@ -95,7 +95,7 @@ describe('<Month />', () => {
           const hovering = component.prop("hovering");
           return hovering;
         });
-        expect(componentsWithHovering.length).toEqual(0);
+        expect(componentsWithHovering.length).toBe(0);
       });
 
       it('sets hovering to true for date that matches `hoveredDate` state', () => {
@@ -118,7 +118,59 @@ describe('<Month />', () => {
           return hovering;
         });
 
-        expect(componentsWithHovering.prop('fullDate').getDate()).toEqual(hoveredDate);
+        expect(componentsWithHovering.prop('fullDate').getDate()).toBe(hoveredDate);
+      });
+
+      it('sets hovering to true on mouseEnter', () => {
+        const hoveredDate = 20;
+        const wrapper = mount(<Month {...mockProps} />);
+
+        const dayComponentToHover = wrapper.find(Day).filterWhere(component => {
+          const fullDate = component.prop("fullDate");
+          if (fullDate == null) {
+            return false;
+          }
+          return fullDate.getDate() === hoveredDate;
+        });
+
+        dayComponentToHover.simulate('mouseEnter', hoveredDate);
+        wrapper.update();
+
+        const componentsWithHovering = wrapper.find(Day).filterWhere(component => {
+          const hovering = component.prop("hovering");
+          return hovering;
+        });
+
+        expect(componentsWithHovering.prop('fullDate').getDate()).toBe(hoveredDate);
+      });
+
+      it('sets hovering to false on mouseLeave', () => {
+        const hoveredDate = 10;
+        const wrapper = mount(<Month {...mockProps} />);
+
+        const dayComponentToHover = wrapper.find(Day).filterWhere(component => {
+          const fullDate = component.prop("fullDate");
+          if (fullDate == null) {
+            return false;
+          }
+          return fullDate.getDate() === hoveredDate;
+        });
+
+        dayComponentToHover.simulate('mouseEnter', hoveredDate);
+        wrapper.update();
+
+        dayComponentToHover.simulate('mouseLeave');
+        wrapper.update();
+
+        const updatedDayComponentToHover = wrapper.find(Day).filterWhere(component => {
+          const fullDate = component.prop("fullDate");
+          if (fullDate == null) {
+            return false;
+          }
+          return fullDate.getDate() === hoveredDate;
+        });
+
+        expect(updatedDayComponentToHover.prop('hovering')).toBe(false);
       });
     });
   });
@@ -128,7 +180,7 @@ describe('<Month />', () => {
       const wrapper = mount(<Month {...mockProps} />);
       const numberOfWeekdayComponents = wrapper.find(Weekday).length;
 
-      expect(numberOfWeekdayComponents).toEqual(7);
+      expect(numberOfWeekdayComponents).toBe(7);
     });
 
     it('renders Weekday components with titles', () => {
