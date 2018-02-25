@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { shallow } from "enzyme";
 
 import Month from "../Month";
 import Day from "../Day";
@@ -15,7 +15,7 @@ describe("<Month />", () => {
   describe("<Day />", () => {
     it("sets the selected prop on the Day component to true for the given date", () => {
       const date = 15;
-      const wrapper = mount(<Month {...mockProps} date={date} />);
+      const wrapper = shallow(<Month {...mockProps} date={date} />);
       const selectedDayComponent = wrapper.find(Day).filterWhere(component => {
         const fullDate = component.prop("fullDate");
         if (fullDate == null) {
@@ -29,7 +29,7 @@ describe("<Month />", () => {
   
     it('assigns the onClick prop to the Day component', () => {
       const onDayClickSpy = () => {};
-      const wrapper = mount(<Month {...mockProps} onDayClick={onDayClickSpy} />);
+      const wrapper = shallow(<Month {...mockProps} onDayClick={onDayClickSpy} />);
       const nonEmptyStateDayComponents = wrapper.find(Day).filterWhere(component => {
         const fullDate = component.prop("fullDate");
         if (fullDate == null) {
@@ -45,7 +45,7 @@ describe("<Month />", () => {
   
     it('calls the onDayClick callback when Day is clicked', () => {
       const onDayClickSpy = jest.fn();
-      const wrapper = mount(<Month {...mockProps} onDayClick={onDayClickSpy} />);
+      const wrapper = shallow(<Month {...mockProps} onDayClick={onDayClickSpy} />);
       const nonEmptyStateDayComponents = wrapper.find(Day).filterWhere(component => {
         const fullDate = component.prop("fullDate");
         if (fullDate == null) {
