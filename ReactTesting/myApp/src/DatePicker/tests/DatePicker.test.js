@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { shallow } from "enzyme";
 
 import Month from "../Month";
 import Day from "../Day";
@@ -17,7 +17,7 @@ describe('<Month />', () => {
   describe('<Day />', () => {
     it('sets the selected prop on the Day component to true for the given date', () => {
       const date = 15;
-      const wrapper = mount(<Month {...mockProps} date={date} />);
+      const wrapper = shallow(<Month {...mockProps} date={date} />);
       const selectedDayComponent = wrapper.find(Day).filterWhere(component => {
         const fullDate = component.prop("fullDate");
         if (fullDate == null) {
@@ -31,7 +31,7 @@ describe('<Month />', () => {
   
     it('assigns the onClick prop to the Day component', () => {
       const onDayClickSpy = () => {};
-      const wrapper = mount(<Month {...mockProps} onDayClick={onDayClickSpy} />);
+      const wrapper = shallow(<Month {...mockProps} onDayClick={onDayClickSpy} />);
       const nonEmptyStateDayComponents = wrapper.find(Day).filterWhere(component => {
         const fullDate = component.prop("fullDate");
         if (fullDate == null) {
@@ -47,7 +47,7 @@ describe('<Month />', () => {
   
     it('calls the onDayClick callback when Day is clicked', () => {
       const onDayClickSpy = jest.fn();
-      const wrapper = mount(<Month {...mockProps} onDayClick={onDayClickSpy} />);
+      const wrapper = shallow(<Month {...mockProps} onDayClick={onDayClickSpy} />);
       const nonEmptyStateDayComponents = wrapper.find(Day).filterWhere(component => {
         const fullDate = component.prop("fullDate");
         if (fullDate == null) {
@@ -63,7 +63,7 @@ describe('<Month />', () => {
     });
   
     it('renders the empty state Day components', () => {
-      const wrapper = mount(<Month {...mockProps} />);
+      const wrapper = shallow(<Month {...mockProps} />);
       const emptyStateDayComponents = wrapper.find(Day).filterWhere(component => {
         const fullDate = component.prop("fullDate");
         if (fullDate == null || component == null) {
@@ -76,7 +76,7 @@ describe('<Month />', () => {
     });
   
     it('renders the non-empty state Day components', () => {
-      const wrapper = mount(<Month {...mockProps} />);
+      const wrapper = shallow(<Month {...mockProps} />);
       const nonEmptyStateDayComponents = wrapper.find(Day).filterWhere(component => {
         const fullDate = component.prop("fullDate");
         if (fullDate == null) {
@@ -90,7 +90,7 @@ describe('<Month />', () => {
 
     describe('hover state', () => {
       it('defaults to non-hovering state', () => {
-        const wrapper = mount(<Month {...mockProps} />);
+        const wrapper = shallow(<Month {...mockProps} />);
         const componentsWithHovering = wrapper.find(Day).filterWhere(component => {
           const hovering = component.prop("hovering");
           return hovering;
@@ -100,7 +100,7 @@ describe('<Month />', () => {
 
       it('sets hovering to true for date that matches `hoveredDate` state', () => {
         const hoveredDate = 20;
-        const wrapper = mount(<Month {...mockProps} />);
+        const wrapper = shallow(<Month {...mockProps} />);
 
         const dayComponentToHover = wrapper.find(Day).filterWhere(component => {
           const fullDate = component.prop("fullDate");
@@ -123,7 +123,7 @@ describe('<Month />', () => {
 
       it('sets hovering to true on mouseEnter', () => {
         const hoveredDate = 20;
-        const wrapper = mount(<Month {...mockProps} />);
+        const wrapper = shallow(<Month {...mockProps} />);
 
         const dayComponentToHover = wrapper.find(Day).filterWhere(component => {
           const fullDate = component.prop("fullDate");
@@ -146,7 +146,7 @@ describe('<Month />', () => {
 
       it('sets hovering to false on mouseLeave', () => {
         const hoveredDate = 10;
-        const wrapper = mount(<Month {...mockProps} />);
+        const wrapper = shallow(<Month {...mockProps} />);
 
         const dayComponentToHover = wrapper.find(Day).filterWhere(component => {
           const fullDate = component.prop("fullDate");
@@ -175,7 +175,7 @@ describe('<Month />', () => {
 
       it('sets hovering to true on mouseEnter', () => {
         const hoveredDate = 20;
-        const wrapper = mount(<Month {...mockProps} />);
+        const wrapper = shallow(<Month {...mockProps} />);
 
         const dayComponentToHover = wrapper.find(Day).filterWhere(component => {
           const fullDate = component.prop("fullDate");
@@ -198,7 +198,7 @@ describe('<Month />', () => {
 
       it('sets hovering to false on mouseLeave', () => {
         const hoveredDate = 10;
-        const wrapper = mount(<Month {...mockProps} />);
+        const wrapper = shallow(<Month {...mockProps} />);
 
         const dayComponentToHover = wrapper.find(Day).filterWhere(component => {
           const fullDate = component.prop("fullDate");
@@ -229,14 +229,14 @@ describe('<Month />', () => {
 
   describe("<Weekday />", () => {
     it('renders Weekday components', () => {
-      const wrapper = mount(<Month {...mockProps} />);
+      const wrapper = shallow(<Month {...mockProps} />);
       const numberOfWeekdayComponents = wrapper.find(Weekday).length;
 
       expect(numberOfWeekdayComponents).toBe(7);
     });
 
     it('renders Weekday components with titles', () => {
-      const wrapper = mount(<Month {...mockProps} />);
+      const wrapper = shallow(<Month {...mockProps} />);
       
       const expectedTitles = weekdays.map((weekday) => {
         return abbreviationForWeekday(weekday);
@@ -251,7 +251,7 @@ describe('<Month />', () => {
     });
 
     it('renders Weekday components with labels', () => {
-      const wrapper = mount(<Month {...mockProps} />);
+      const wrapper = shallow(<Month {...mockProps} />);
       
       const expectedLabels = weekdays.map((weekday) => {
         return weekday;
