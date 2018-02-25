@@ -172,6 +172,58 @@ describe('<Month />', () => {
 
         expect(updatedDayComponentToHover.prop('hovering')).toBe(false);
       });
+
+      it('sets hovering to true on mouseEnter', () => {
+        const hoveredDate = 20;
+        const wrapper = mount(<Month {...mockProps} />);
+
+        const dayComponentToHover = wrapper.find(Day).filterWhere(component => {
+          const fullDate = component.prop("fullDate");
+          if (fullDate == null) {
+            return false;
+          }
+          return fullDate.getDate() === hoveredDate;
+        });
+
+        dayComponentToHover.simulate('mouseEnter', hoveredDate);
+        wrapper.update();
+
+        const componentsWithHovering = wrapper.find(Day).filterWhere(component => {
+          const hovering = component.prop("hovering");
+          return hovering;
+        });
+
+        expect(componentsWithHovering.prop('fullDate').getDate()).toEqual(hoveredDate);
+      });
+
+      it('sets hovering to false on mouseLeave', () => {
+        const hoveredDate = 10;
+        const wrapper = mount(<Month {...mockProps} />);
+
+        const dayComponentToHover = wrapper.find(Day).filterWhere(component => {
+          const fullDate = component.prop("fullDate");
+          if (fullDate == null) {
+            return false;
+          }
+          return fullDate.getDate() === hoveredDate;
+        });
+
+        dayComponentToHover.simulate('mouseEnter', hoveredDate);
+        wrapper.update();
+
+        dayComponentToHover.simulate('mouseLeave');
+        wrapper.update();
+
+        const updatedDayComponentToHover = wrapper.find(Day).filterWhere(component => {
+          const fullDate = component.prop("fullDate");
+          if (fullDate == null) {
+            return false;
+          }
+          return fullDate.getDate() === hoveredDate;
+        });
+
+        expect(updatedDayComponentToHover.prop('hovering')).toEqual(false);
+      });
     });
   });
 
