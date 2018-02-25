@@ -127,4 +127,43 @@ describe("<Month />", () => {
       expect(labelsFromComponents).toEqual(expectedLabels);
     });
   });
+
+  describe("<Weekday />", () => {
+    it('renders Weekday components', () => {
+      const wrapper = mount(<Month {...mockProps} />);
+      const numberOfWeekdayComponents = wrapper.find(Weekday).length;
+
+      expect(numberOfWeekdayComponents).toBe(7);
+    });
+
+    it('renders Weekday components with titles', () => {
+      const wrapper = mount(<Month {...mockProps} />);
+      
+      const expectedTitles = weekdays.map((weekday) => {
+        return abbreviationForWeekday(weekday);
+      });
+
+      const weekdayComponents = wrapper.find(Weekday);
+      const titlesFromComponents = weekdayComponents.map((component) => {
+        return component.prop('title');
+      });
+
+      expect(titlesFromComponents).toEqual(expectedTitles);
+    });
+
+    it('renders Weekday components with labels', () => {
+      const wrapper = mount(<Month {...mockProps} />);
+      
+      const expectedLabels = weekdays.map((weekday) => {
+        return weekday;
+      });
+
+      const weekdayComponents = wrapper.find(Weekday);
+      const labelsFromComponents = weekdayComponents.map((component) => {
+        return component.prop('label');
+      });
+
+      expect(labelsFromComponents).toEqual(expectedLabels);
+    });
+  });
 });
